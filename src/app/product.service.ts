@@ -31,6 +31,8 @@ export class ProductService {
   update(productId, product) {
     return this.db.object('/products/' + productId).update(product);
   }
+  
+  //calisiyor
   delete(productId) {
     return this.db.object('/products/' + productId).remove();
   }

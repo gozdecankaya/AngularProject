@@ -28,15 +28,13 @@ export class ProductFormComponent implements OnInit {
 
 
     //categorileri listview cekiyor.        CALISIYOR
-    this.categories$ = categoryService.getCategories();
-
-    //aslinda guncellemeyi yapan yer olmasi gerekiyor. 
-    //edit yapinca geliyor ama icerik gozukmuyor.
-    //idlerin url kismina geldigi yer
+    this.categories$ = categoryService.getAll();
 
 
-    //ustteki metot olmazsa console id yazamiyoruz. Calisiyor ama ne is yapiyor ? 
+
+    //ustteki metot olmazsa console id yazamiyoruz. 
      this.id = this.route.snapshot.paramMap.get('id');
+     
     if(this.id && this.id != 'new'){
       productService.get(this.id).take(1).subscribe(p => this.product = p);
       console.log(this.product);
@@ -58,7 +56,7 @@ export class ProductFormComponent implements OnInit {
     this.router.navigate(['/admin/products']);
   }
 
-
+//calisiyor
   delete() {
     if (confirm('Are you sure you want to delete this product')) {
       this.productService.delete(this.id);

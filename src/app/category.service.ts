@@ -9,7 +9,7 @@ export class CategoryService {
   //categoriler get metoduyla db listesinden cekilir. Ancak angularFireList yapmazsam async pipe hata veriyor.
   //CALISIYOOOR. VALUECHANGES()
   
-  getCategories(){
+  getAll(){
    // return this.db.list('/categories').valueChanges(); 
 
    return this.db.list('/categories').snapshotChanges().map(changes => {
