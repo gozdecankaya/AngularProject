@@ -17,8 +17,7 @@ export class ProductFormComponent implements OnInit {
 
   categories$;
   product = {};
-  
-
+  id;
 
 
   constructor(
@@ -31,27 +30,19 @@ export class ProductFormComponent implements OnInit {
     //categorileri listview cekiyor.        CALISIYOR
     this.categories$ = categoryService.getCategories();
 
-
-
     //aslinda guncellemeyi yapan yer olmasi gerekiyor. 
     //edit yapinca geliyor ama icerik gozukmuyor.
     //idlerin url kismina geldigi yer
 
 
     //ustteki metot olmazsa console id yazamiyoruz. Calisiyor ama ne is yapiyor ? 
-     let id = this.route.snapshot.paramMap.get('id');
-    if (id) productService.get(id).take(1)
-    .subscribe(product => this.product = product);
-    console.log(id);
-
-    //CALISMIYOR
-    // if(this.id && this.id != 'new'){
-    //   productService.get(this.id).take(1).subscribe(p => this.product = p);
-    //   console.log(this.product);
-    // } else {
-    //   this.product = {};
-    // }   
-
+     this.id = this.route.snapshot.paramMap.get('id');
+    if(this.id && this.id != 'new'){
+      productService.get(this.id).take(1).subscribe(p => this.product = p);
+      console.log(this.product);
+    } else {
+      this.product = {};
+    }   
   }
   ngOnInit() {}
 
@@ -59,13 +50,20 @@ export class ProductFormComponent implements OnInit {
   // burada girmis oldugumuz veriler database kayit edilir 
   //CALISIYOR
   save(product) {
+    if(this.id){
+      this.productService.update(this.id, product);
+    }else{
     this.productService.create(product);
+    }
     this.router.navigate(['/admin/products']);
   }
 
 
   delete() {
-
+    if (confirm('Are you sure you want to delete this product')) {
+      this.productService.delete(this.id);
+    }
+    this.router.navigate(['/admin/products']);
   }
 
 }

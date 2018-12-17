@@ -12,6 +12,7 @@ export class ProductService {
     return this.db.list('/products').push(product);
   }
 
+
   //butun datalari gosterecek olan komut
   // title altina butun hepsini gosteriyor.
   //SORUN YOK
@@ -24,6 +25,13 @@ export class ProductService {
   //burasi databaseden gelen kisim
   //guncelleme yapan kisim
   get(productId){
-    return this.db.list('/products/' + productId).valueChanges();
+    return this.db.list('/products/' + productId).snapshotChanges();
+  }
+
+  update(productId, product) {
+    return this.db.object('/products/' + productId).update(product);
+  }
+  delete(productId) {
+    return this.db.object('/products/' + productId).remove();
   }
 }
