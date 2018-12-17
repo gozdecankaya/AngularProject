@@ -54,11 +54,11 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       .then(items => this.items = items);
   }
 
-  // filter(query: string) {
-  //   this.filteredProducts = (query) ?
-  //     this.products.filter((p) => p.title.toLowerCase().includes(query.toLowerCase())) :
-  //     this.products;
-  // }
+  filter(query: string) {
+    this.filteredProducts = (query) ?
+      this.products.filter((p) => p.title.toLowerCase().includes(query.toLowerCase())) :
+      this.products;
+  }
 
 
 }

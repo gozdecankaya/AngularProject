@@ -27,11 +27,11 @@ export class ProductsComponent {
     // this.products$ = productService.getAll();
 
 
-    // ama hata neden?
+    // videoda parantez ici products direk onu Product[] esitliyoruz.
     productService
       .getAll()
       .switchMap((products:Product[]) => {
-        console.log('this IS WHAT WE GET FROM SWITCH MAP',products);
+      //  console.log('this IS WHAT WE GET FROM SWITCH MAP',products);
         this.products = products;
         return route.queryParamMap;
       })

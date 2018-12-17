@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/category.service';
-import { AngularFireList } from 'angularfire2/database';
 import { ProductService } from 'src/app/product.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import 'rxjs/operator/take';
 
 @Component({
