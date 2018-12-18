@@ -3,6 +3,9 @@ import { CategoryService } from 'src/app/category.service';
 import { ProductService } from 'src/app/product.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import 'rxjs/operator/take';
+import { Product } from 'src/app/models/Product';
+import { take } from 'rxjs/operator/take';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product-form',
@@ -12,8 +15,9 @@ import 'rxjs/operator/take';
 export class ProductFormComponent implements OnInit {
 
   //PRODUCTFORMCOMPONENT YENI EKLENEN SAYFA
-
+  
   categories$;
+  categories: any[];
   product = {};
   id;
 
@@ -25,36 +29,44 @@ export class ProductFormComponent implements OnInit {
     private productService: ProductService) {
 
 
-    //categorileri listview cekiyor.        CALISIYOR
+    //categorileri listview cekiyor.        
+    //CALISIYOR
     this.categories$ = categoryService.getAll();
 
 
 
-    //ustteki metot olmazsa console id yazamiyoruz. 
-     this.id = this.route.snapshot.paramMap.get('id');
-     
-    if(this.id && this.id != 'new'){
-      productService.get(this.id).take(1).subscribe(p => this.product = p);
-      console.log(this.product);
+    //id yi donduruyor.
+    this.id = this.route.snapshot.paramMap.get('id');
+
+    if (this.id && this.id != 'new') {
+      productService.get(this.id)
+        .take(1)
+        .subscribe(product => {
+          this.product = product;
+        //  console.log(this.product);
+        });
     } else {
       this.product = {};
-    }   
+    }
+
+
   }
-  ngOnInit() {}
+  ngOnInit() { }
 
 
   // burada girmis oldugumuz veriler database kayit edilir 
   //CALISIYOR
   save(product) {
-    if(this.id){
+
+    if (this.id) {
       this.productService.update(this.id, product);
-    }else{
-    this.productService.create(product);
+    } else {
+      this.productService.create(product);
     }
     this.router.navigate(['/admin/products']);
   }
 
-//calisiyor
+  //calisiyor
   delete() {
     if (confirm('Are you sure you want to delete this product')) {
       this.productService.delete(this.id);

@@ -11,7 +11,7 @@ import { snapshotChanges } from 'angularfire2/database';
   styleUrls: ['./admin-products.component.css']
 })
 export class AdminProductsComponent implements OnInit, OnDestroy {
-  // products$;
+   //products$;
 
   products: Product[];
   filteredProducts: any[];
@@ -22,10 +22,11 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
 
   constructor(private productService: ProductService) {
 
-    //  this.products$ = this.productService.getAll();
+    //this.products = this.productService.getAll();
+
+    //calisiyor. Data table icine productleri getirdi.
     this.subscription = this.productService.getAll()
-      .subscribe(products => {
-        this.filteredProducts = products;
+      .subscribe((products: Product[]) => { this.filteredProducts = this.products = products;
         this.initializeTable(this.products);
       });
 
@@ -44,9 +45,8 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
+ // filter calismiyor
+
   reloadItems(params) {
     if (!this.tableResource) return
 
@@ -60,5 +60,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       this.products;
   }
 
-
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }

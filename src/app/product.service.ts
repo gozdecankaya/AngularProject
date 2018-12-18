@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { Product } from './models/Product';
 
 @Injectable()
 export class ProductService {
@@ -22,14 +23,15 @@ export class ProductService {
     });
   }
 
-  //burasi databaseden gelen kisim
-  //guncelleme yapan kisim
+
+  // edit butonuna bastigimizda acilan datalarin gelmesini saglayan yer
   get(productId){
-    return this.db.list('/products/' + productId).snapshotChanges();
+    return this.db.object<Product>('/products/' + productId).snapshotChanges().map(c => ({ key: c.payload.key, ...c.payload.val()}));
+    
   }
 
   update(productId, product) {
-    return this.db.object('/products/' + productId).update(product);
+    return this.db.object<Product>('/products/' + productId).update(product);
   }
   
   //calisiyor

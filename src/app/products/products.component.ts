@@ -1,28 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from '../product.service';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../models/Product';
 import 'rxjs/add/operator/switchMap';
+import { ShoppingCartService } from '../shopping-cart.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit, OnDestroy {
 
   // products$;
   products: Product[];
   filteredProducts: Product[] = [];
   category: string;
+  cart: any;
+  subscription: Subscription;
 
   constructor(
     route: ActivatedRoute,
     productService: ProductService,
+    private shoppingCartService: ShoppingCartService
   ) {
-
-    // asagidaki sekilde calisiyor ancak filter yapmaya calisirsak
-    // yani asagidaki metoda cevirirsek calismiyor
 
     // this.products$ = productService.getAll();
 
@@ -45,5 +47,11 @@ export class ProductsComponent {
           this.products;
 
       });
+  }
+  async ngOnInit() {
+     (await this.shoppingCartService.getCart()).valueChanges().subscribe(cart => this.cart = cart);
+  }
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 }
