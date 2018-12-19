@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Product } from './models/Product';
 import { take } from 'rxjs/operators';
 import { ShoppingCartProduct } from './models/shoppingCartProduct';
+import { ShoppingCart } from './models/shopping-cart';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,14 @@ export class ShoppingCartService {
     });
   }
 
-   async getCart() {
-     let cartId = await this.getOrCreateCartId();
-    return this.db.object('/shopping-carts' + cartId);
+  //getCart metodu getOrCreateCart metoduna gidip localstorage deki 
+  async getCart(): Promise<AngularFireObject<ShoppingCart>> {
+    let cartId = await this.getOrCreateCartId();
+    return this.db.object('/shopping-carts/' + cartId);
+  }
+
+  private getItem(cartId: string, productId: string) {
+    return this.db.object('/shopping-carts/' + cartId + '/items/' + productId);
   }
 
   //promise kullandigimizda getCart daki cartId de string oluyor.
@@ -39,70 +45,33 @@ export class ShoppingCartService {
 
   async addToCart(product: Product) {
 
-    //duzelt
+    this.updateItemQuantity(product, 1);
+  }
+
+
+  async removeFromCart(product: Product) {
+
+    this.updateItemQuantity(product, -1);
+  }
+
+
+  // quantitylerimizi update ediyor. getItem gidiyor. oda databasede tutuyor.
+  private async updateItemQuantity(product: Product, change: number) {
+
     let cartId = await this.getOrCreateCartId();
+    let item = this.getItem(cartId, product.key);
     console.log("cartId is ", cartId);
-    let item = this.db.object('/shopping-carts/' + cartId + '/items/' + product.key);
+    // let item = this.db.object('/shopping-carts/' + cartId + '/items/' + product.key);
 
     item.valueChanges().pipe(take(1)).subscribe((data: ShoppingCartProduct) => {
       console.log("this is emitted from item$", data);
       if (data)
-        item.update({ quantity: data.quantity + 1 });
+        item.update({ quantity: data.quantity + change });
       else
-        item.set({ product: product, quantity: 1 });
-    });
-  }
-  
-  //duzelt
-  async removeFromCart(product: Product){
-    let cartId = await this.getOrCreateCartId();
-    console.log("cartId is ", cartId);
-    let item = this.db.object('/shopping-carts/' + cartId + '/items/' + product.key);
-
-    item.valueChanges().pipe(take(1)).subscribe((data: ShoppingCartProduct) => {
-      console.log("this is emitted from item$", data);
-      if (data)
-        item.update({ quantity: data.quantity - 1 });
-      else
-        item.set({ product: product, quantity: 1 });
+        item.update({ product: product, quantity: change });
     });
   }
 
-  // private getItem(cartId: string, productId: string) {
-  //   return this.db.object('/shopping-carts/' + cartId + '/items/' + productId);
-  // }
-  //   async getCart() {
-  //   const cartId = await this.getOrCreateCartId();
 
-  //   return this.db.list('/shopping-carts' + cartId);
-  // }
-
-
-  // async addToCart(product: Product){
-  //   this.updateItem(product, 1);
-
-
-  // }
-
-
-  // private async updateItem(product: Product, change: number){
-  //   const cartId = await this.getOrCreateCartId();
-  //   const item = this.getItem(cartId, product.key);
-  // item.valueChanges().pipe(take(1)).subscribe((data: ShoppingCartProduct) => {
-  //   if (!data) {
-  //     item.set({
-  //       product: product,
-  //       quantity: 1
-  //     });
-  //   } else {
-  //     const quantity = data.quantity + change;
-  //     if (quantity === 0) {
-  //       item.remove();
-  //     } else {
-  //       item.update({ product: product, quantity: data.quantity + change });
-  //     }
-  //   }
-  // });
-  // }
 
 }
