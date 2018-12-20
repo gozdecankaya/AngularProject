@@ -14,7 +14,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
    //products$;
 
   products: Product[];
-  filteredProducts: any[];
+  filteredProducts: Product[];
   subscription: Subscription;
   tableResource: DataTableResource<Product>;
   items: Product[] = [];
@@ -45,19 +45,22 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
- // filter calismiyor
-
+  
   reloadItems(params) {
     if (!this.tableResource) return
 
     this.tableResource.query(params)
       .then(items => this.items = items);
+     // console.log(this.items);
   }
 
   filter(query: string) {
     this.filteredProducts = (query) ?
-      this.products.filter((p) => p.title.toLowerCase().includes(query.toLowerCase())) :
+      this.products.filter((p) => p.title.toLowerCase().includes(query.toLowerCase())) : 
       this.products;
+      console.log(query);
+
+      this.initializeTable(this.filteredProducts);
   }
 
   ngOnDestroy() {

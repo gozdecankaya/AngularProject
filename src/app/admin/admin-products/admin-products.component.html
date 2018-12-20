@@ -1,7 +1,8 @@
 <!--calisiyor-->
 <p><a routerLink="/admin/products/new" class="btn btn-primary">New Product</a></p>
-<p>    
-    <input class="form-control" placeholder="Search..." #query (keyup)="filter(query.value)">
+<p>   
+    <input #query (keyup)="filter(query.value)"
+    type="text" class="form-control" placeholder="Search..." >
 </p>
 
 <data-table
