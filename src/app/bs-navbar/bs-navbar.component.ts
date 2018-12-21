@@ -5,7 +5,6 @@ import { ShoppingCartService } from '../shopping-cart.service';
 import { Observable } from 'rxjs';
 import { ShoppingCart } from '../models/shopping-cart';
 import { AngularFireObject } from 'angularfire2/database';
-import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'bs-navbar',
@@ -14,17 +13,17 @@ import { TouchSequence } from 'selenium-webdriver';
 })
 export class BsNavbarComponent implements OnInit {
   appUser: AppUser;
- // cart$: Observable<ShoppingCart>;
-  shoppingCartItemCount: number;
+   cart$;
+ shoppingCartItemCount: number;
 
-  constructor(public auth: AuthService, private shoppingCartService: ShoppingCartService) {}
+constructor(public auth: AuthService, private shoppingCartService: ShoppingCartService) {}
 
 async ngOnInit(){
  // auth.appUser$.subscribe(appUser => this.appUser = appUser); 
  
- //this.cart$ = await this.shoppingCartService.getCart();
- let cart$ = await this.shoppingCartService.getCart();
- cart$.valueChanges().subscribe(cart => {
+  // this.cart$ = await this.shoppingCartService.getCart();
+ this.cart$ = await this.shoppingCartService.getCart();
+ this.cart$.subscribe(cart => {
   this.shoppingCartItemCount = 0;
   for (let productId in cart.items){
     this.shoppingCartItemCount += cart.items[productId].quantity;
