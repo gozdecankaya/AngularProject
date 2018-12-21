@@ -24,26 +24,14 @@ export class ShoppingCartComponent implements OnInit {
 
   constructor(private shoppingCartService: ShoppingCartService) { }
 
-  
+
   async ngOnInit() {
 
     this.cart$ = await this.shoppingCartService.getCart();
-
-
-    // let cart$ = await this.shoppingCartService.getCart();
-    // cart$.subscribe(cart => {
-    //   this.shoppingCartItemCount = 0;
-    //   for (this.productId in cart.items) {
-    //     this.shoppingCartItemCount += cart.items[this.productId].quantity;
-    //   }
-
-    //   this.itemTitle = cart.items[this.productId].product.title;
-    //   this.itemPrice = cart.items[this.productId].quantity;
-    
-   // })
-
-   
-
   }
 
+  // clearCart(){
+  //   this.shoppingCartService.clearCart();
+  //   console.log("tiklandi");
+  // }
 }

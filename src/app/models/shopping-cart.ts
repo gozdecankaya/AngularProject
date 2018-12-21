@@ -9,11 +9,14 @@ export class ShoppingCart {
     
     for (let productId in itemsMap) {
       let item = itemsMap[productId];
-     // this.items.push(new ShoppingCartItem({ ...item, $key: productId }));
+    //  this.items.push(new ShoppingCartItem({ ...item, key: productId }));
     this.items.push(new ShoppingCartItem(item.product, item.quantity));
     }
   }
 
+  // buradan quantity degerlerini donduruyoruz. 
+  //eskiden hem product-quantity icerisindeydi hem de product-card component icerisindeydi.
+  //simdi her ikisini de bu module bagladigimiz icin oradan sildik.
   getQuantity(product: Product) {
     let item = this.itemsMap[product.key];
     return item ? item.quantity : 0;

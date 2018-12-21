@@ -13,6 +13,33 @@ export class ShoppingCartService {
 
   constructor(private db: AngularFireDatabase) { }
 
+  // getCart metodu getOrCreateCart metoduna gidip localstorage deki 
+  async getCart() {
+    let cartId = await this.getOrCreateCartId();
+    // return this.db.object('/shopping-carts/' + cartId);
+    return this.db.object('/shopping-carts/' + cartId).snapshotChanges()
+      .pipe(
+        map(x => new ShoppingCart(x.payload.val()['items']))
+      );
+
+  }
+  async addToCart(product: Product) {
+
+    this.updateItemQuantity(product, 1);
+  }
+
+
+  async removeFromCart(product: Product) {
+
+    this.updateItemQuantity(product, -1);
+  }
+
+  // async clearCart(){
+  //   let cartId = await this.getOrCreateCartId();
+  //   this.db.object('/shopping-cart/' + cartId + '/items').remove();
+  // }
+
+
 
   private create() {
     return this.db.list('/shopping-carts').push({
@@ -20,20 +47,6 @@ export class ShoppingCartService {
     });
   }
 
-  // getCart metodu getOrCreateCart metoduna gidip localstorage deki 
-  async getCart() {
-    let cartId = await this.getOrCreateCartId();
-  // return this.db.object('/shopping-carts/' + cartId);
-  return this.db.object('/shopping-carts/' + cartId).snapshotChanges()
-      .pipe(
-        map(x => new ShoppingCart(x.payload.val()['items']))
-      );
-
-
-  //  return this.db.object('/shopping-carts/' + cartId).valueChanges()
-  //  .map(x => new ShoppingCart(x.items));
-  }
-  
 
   private getItem(cartId: string, productId: string) {
     return this.db.object('/shopping-carts/' + cartId + '/items/' + productId);
@@ -53,16 +66,6 @@ export class ShoppingCartService {
   }
 
 
-  async addToCart(product: Product) {
-
-    this.updateItemQuantity(product, 1);
-  }
-
-
-  async removeFromCart(product: Product) {
-
-    this.updateItemQuantity(product, -1);
-  }
 
 
   // quantitylerimizi update ediyor. getItem gidiyor. oda databasede tutuyor.
@@ -70,27 +73,27 @@ export class ShoppingCartService {
 
     let cartId = await this.getOrCreateCartId();
     let item = this.getItem(cartId, product.key);
-    console.log("cartId is sd ", cartId);
+    // console.log("cartId is sd ", cartId);
     // let item = this.db.object('/shopping-carts/' + cartId + '/items/' + product.key);
 
     item.valueChanges().pipe(take(1)).subscribe((data: ShoppingCartProduct) => {
       console.log("this is emitted from item$", data);
-     // let quantity = (data.quantity || 0) + change;
+      // let quantity = (data.quantity || 0) + change;
       if (data)
-        item.update({ quantity: data.quantity + change, product: product});
+        item.update({ quantity: data.quantity + change, product: product });
       else
         item.update({ product: product, quantity: change });
 
 
-        // item$.take(1).subscribe(item => {
-        //   let quantity = (item.quantity || 0) + change;
-        //   if (quantity === 0) item$.remove();
-        //   else item$.update({ 
-        //     title: product.title,
-        //     imageUrl: product.imageUrl,
-        //     price: product.price,
-        //     quantity: quantity
-        //   });
+      // item$.take(1).subscribe(item => {
+      //   let quantity = (item.quantity || 0) + change;
+      //   if (quantity === 0) item$.remove();
+      //   else item$.update({ 
+      //     title: product.title,
+      //     imageUrl: product.imageUrl,
+      //     price: product.price,
+      //     quantity: quantity
+      //   });
 
     });
   }
