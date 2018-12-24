@@ -79,21 +79,21 @@ export class ShoppingCartService {
     item.valueChanges().pipe(take(1)).subscribe((data: ShoppingCartProduct) => {
       console.log("this is emitted from item$", data);
       // let quantity = (data.quantity || 0) + change;
-      if (data)
-        item.update({ quantity: data.quantity + change, product: product });
+      
+      if (data){
+      item.update({ quantity: data.quantity + change, product: product });
+     let quantity = data.quantity + change;
+      if (quantity === 0) item.remove();
+      else {
+      item.update({
+        product: product,
+        quantity: data.quantity + change
+      })
+    }
+
+   } //data yoksa
       else
         item.update({ product: product, quantity: change });
-
-
-      // item$.take(1).subscribe(item => {
-      //   let quantity = (item.quantity || 0) + change;
-      //   if (quantity === 0) item$.remove();
-      //   else item$.update({ 
-      //     title: product.title,
-      //     imageUrl: product.imageUrl,
-      //     price: product.price,
-      //     quantity: quantity
-      //   });
 
     });
   }
