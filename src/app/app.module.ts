@@ -7,9 +7,10 @@ import { DataTableModule } from 'angular5-data-table';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { environment } from 'src/environments/environment';
 import { CustomFormsModule } from 'ng2-validation';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { environment } from 'src/environments/environment';
+
 import { AdminAuthGuard } from './admin-auth-guard.service';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
