@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ShoppingCartService } from '../shared/services/shopping-cart.service';
-import { Product } from '../shared/models/Product';
+import { ShoppingCartService } from '../../../shared/services/shopping-cart.service';
+import { Product } from '../../../shared/models/Product';
 import { DataTableResource } from 'angular5-data-table';
 import { Subscription } from 'rxjs';
-import { ShoppingCartItem } from '../shared/models/shopping-cart-item';
+import { ShoppingCartItem } from '../../../shared/models/shopping-cart-item';
 import { ActivatedRoute } from '@angular/router';
-import { ShoppingCart } from '../shared/models/shopping-cart';
+import { ShoppingCart } from '../../../shared/models/shopping-cart';
 
 
 @Component({

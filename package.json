@@ -22,6 +22,8 @@
     "@angular/router": "~7.1.0",
     "@firebase/app": "^0.3.5",
     "@ng-bootstrap/ng-bootstrap": "^4.0.0",
+    "@ngtools/webpack": "^7.1.4",
+    "acorn": "^4.0.7",
     "angular-2-data-table": "^0.1.2",
     "angular-4-data-table": "^0.4.6",
     "angular5-data-table": "^1.0.3",
@@ -43,8 +45,8 @@
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.11.0",
-    "@angular/cli": "~7.1.2",
+    "@angular-devkit/build-angular": "^0.11.4",
+    "@angular/cli": "^7.1.4",
     "@angular/compiler-cli": "~7.1.0",
     "@angular/language-service": "~7.1.0",
     "@types/jasmine": "~2.8.8",
@@ -62,5 +64,17 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.1.6"
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.2.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gozdecankaya/AngularProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gozdecankaya/AngularProject/issues"
+  },
+  "homepage": "https://github.com/gozdecankaya/AngularProject#readme"
 }
