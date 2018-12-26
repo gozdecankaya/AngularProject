@@ -11,10 +11,10 @@ import { CustomFormsModule } from 'ng2-validation';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { environment } from 'src/environments/environment';
 
-import { AdminAuthGuard } from './admin-auth-guard.service';
-import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
-import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
-import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { AdminAuthGuard } from './admin/services/admin-auth-guard.service';
+import { AdminOrdersComponent } from './admin/components/admin-orders/admin-orders.component';
+import { AdminProductsComponent } from './admin/components/admin-products/admin-products.component';
+import { ProductFormComponent } from './admin/components/product-form/product-form.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
@@ -29,6 +29,7 @@ import { AuthGuard } from './shared/services/auth-guard.service';
 import { ShippingFormComponent } from './shipping-form/shipping-form.component';
 import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { AdminModule } from './admin/admin.module';
 
 
 
@@ -43,9 +44,6 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     OrderSuccessComponent,
     MyOrdersComponent,
     LoginComponent,
-    AdminProductsComponent,
-    AdminOrdersComponent,
-    ProductFormComponent,
     ProductFilterComponent,
     ShoppingCartSummaryComponent,
     ShippingFormComponent
@@ -53,6 +51,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
   imports: [
     BrowserModule,
     SharedModule,
+    AdminModule,
     FormsModule,
     CustomFormsModule,
     AppRoutingModule,
@@ -90,7 +89,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     ])
   ],
   providers: [
-    AdminAuthGuard,
+    AdminAuthGuard
   ],
   bootstrap: [AppComponent]
 })
