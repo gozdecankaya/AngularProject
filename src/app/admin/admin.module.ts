@@ -1,8 +1,5 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { DataTableModule } from 'angular5-data-table';
 
 import { AuthGuard } from '../shared/services/auth-guard.service';
 import { SharedModule } from '../shared/shared.module';
@@ -18,10 +15,7 @@ import { AdminAuthGuard } from './services/admin-auth-guard.service';
     ProductFormComponent,
   ],
   imports: [
-    CommonModule,
-    FormsModule,
     SharedModule,
-    DataTableModule,
     RouterModule.forChild([
       {
         path: 'admin/products/new',
