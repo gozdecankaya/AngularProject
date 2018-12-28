@@ -4,9 +4,10 @@ export class Order{
     datePlaced: number;
     items: any[];
 
+
     constructor(public userId: string, public shipping: any, shoppingCart: ShoppingCart){
         this.datePlaced = new Date().getTime();
-
+        // shipping: this.shipping,
         this.items = shoppingCart.items.map(i => {
             return {
               product: i.product,

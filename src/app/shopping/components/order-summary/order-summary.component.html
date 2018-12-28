@@ -1,0 +1,41 @@
+<div   class="card">
+  <img class="card-img-top" >
+  <div class="card-body">
+    <h3 class="card-title">Customer : {{ shippingName }}</h3>
+    <h5 class="card-text"> City : {{ city }} </h5>
+    <h5 class="card-text"> Date : {{ date | date }} </h5>
+
+  </div>
+</div>
+
+<div class="card">
+<div class="card-body">
+    <table class="table">
+    <thead>
+        <tr>
+          <th>Order Details</th>
+          <th></th>
+          <th></th>
+          <th> Total Price </th>
+        </tr>
+      </thead> 
+    <tbody>
+  <tr  *ngFor="let item of items" >
+      <td class="card-text"> {{ item.quantity}} x {{ item.product.title }} </td>
+      <td></td>
+      <td></td>
+      <td class="card-text"> {{ item.totalPrice | currency:'USD': true }} </td>
+      </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th class="card-text"> {{ totalPrice | currency: 'USD':true}} </th>
+        </tr>
+      </tfoot>
+    </table> 
+</div>
+  
+  </div>

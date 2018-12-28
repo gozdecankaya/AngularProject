@@ -1,11 +1,9 @@
+import 'rxjs/operator/take';
+
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { ProductService } from 'src/app/shared/services/product.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import 'rxjs/operator/take';
-import { Product } from 'src/app/shared/models/Product';
-import { take } from 'rxjs/operator/take';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product-form',
@@ -68,7 +66,7 @@ export class ProductFormComponent implements OnInit {
 
   //calisiyor
   delete() {
-    if (confirm('Are you sure you want to delete this product')) {
+    if (confirm('Are you sure you want to delete this product?')) {
       this.productService.delete(this.id);
     }
     this.router.navigate(['/admin/products']);

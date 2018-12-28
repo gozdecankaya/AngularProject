@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { ShoppingCartService } from './shopping-cart.service';
 import { query } from '@angular/core/src/render3';
+import { AngularFireDatabase } from 'angularfire2/database';
+
+import { ShoppingCartService } from './shopping-cart.service';
 
 
 @Injectable({
@@ -14,7 +15,7 @@ export class OrderService {
 
   async placeOrder(order){
     let result = await this.db.list('/orders').push(order);
-   // this.shoppingCartService.clearCart();
+    this.shoppingCartService.clearCart();
     return result;
   }
 
@@ -24,9 +25,14 @@ export class OrderService {
     });
   }
 
+
   getOrdersByUser(userId: string){
     return this.db.list('/orders', query => 
     query.orderByChild('userId').equalTo(userId)
-    )}
+    ).snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    })
+  }
+
 
 }

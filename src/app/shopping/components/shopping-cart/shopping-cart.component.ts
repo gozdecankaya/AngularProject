@@ -1,11 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ShoppingCartService } from '../../../shared/services/shopping-cart.service';
-import { Product } from '../../../shared/models/Product';
-import { DataTableResource } from 'angular5-data-table';
+import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ShoppingCartItem } from '../../../shared/models/shopping-cart-item';
-import { ActivatedRoute } from '@angular/router';
-import { ShoppingCart } from '../../../shared/models/shopping-cart';
+
+import { Product } from '../../../shared/models/Product';
+import { ShoppingCartService } from '../../../shared/services/shopping-cart.service';
 
 
 @Component({
@@ -30,8 +27,8 @@ export class ShoppingCartComponent implements OnInit {
     this.cart$ = await this.shoppingCartService.getCart();
   }
 
-  // clearCart(){
-  //   this.shoppingCartService.clearCart();
-  //   console.log("tiklandi");
-  // }
+  clearCart(){
+    this.shoppingCartService.clearCart();
+    console.log("tiklandi");
+  }
 }

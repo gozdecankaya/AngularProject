@@ -1,4 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { OrderService } from 'src/app/shared/services/order.service';
+
 import { ShoppingCart } from '../../../shared/models/shopping-cart';
 
 @Component({
@@ -7,7 +11,15 @@ import { ShoppingCart } from '../../../shared/models/shopping-cart';
   styleUrls: ['./shopping-cart-summary.component.css']
 })
 export class ShoppingCartSummaryComponent {
+  
+  @Input('cart') cart: ShoppingCart;
 
-@Input ('cart') cart: ShoppingCart;
 
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private orderService: OrderService) {
+
+
+  }
 }

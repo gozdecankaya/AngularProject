@@ -12,11 +12,13 @@ import { LoginComponent } from './core/components/login/login.component';
 import { CoreModule } from './core/core.module';
 import { ProductsComponent } from './shopping/components/products/products.component';
 import { ShoppingModule } from './shopping/shopping.module';
+import { OrderSummaryComponent } from './shopping/components/order-summary/order-summary.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    OrderSummaryComponent
   ],
 
   imports: [

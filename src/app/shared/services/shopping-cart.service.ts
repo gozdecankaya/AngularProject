@@ -34,10 +34,10 @@ export class ShoppingCartService {
     this.updateItemQuantity(product, -1);
   }
 
-  // async clearCart(){
-  //   let cartId = await this.getOrCreateCartId();
-  //   this.db.object('/shopping-cart/' + cartId + '/items').remove();
-  // }
+  async clearCart(){
+    let cartId = await this.getOrCreateCartId();
+    this.db.object('/shopping-carts/' + cartId + '/items').remove();
+  }
 
 
 

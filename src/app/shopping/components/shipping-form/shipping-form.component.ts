@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Order } from '../../../shared/models/order';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth.service';
 import { OrderService } from '../../../shared/services/order.service';
 import { ShoppingCart } from '../../../shared/models/shopping-cart';
@@ -16,14 +16,15 @@ export class ShippingFormComponent implements OnInit, OnDestroy {
   @Input ('cart') cart: ShoppingCart;
   shipping= {};
   userSubscription: Subscription;
-  userId: string; 
+  userId: string;
+
   
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private authService: AuthService,
-    private orderService: OrderService) { }
-
-
+    private orderService: OrderService) {
+    }
 
   ngOnInit() {
     this.userSubscription = this.authService.user$.subscribe(user => this.userId = user.uid);

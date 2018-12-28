@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ShoppingCart } from 'src/app/shared/models/shopping-cart';
-import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ShoppingCart } from 'src/app/shared/models/shopping-cart';
+import { OrderService } from 'src/app/shared/services/order.service';
+import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.service';
 
 
 @Component({
@@ -10,12 +12,23 @@ import { Observable } from 'rxjs';
   styleUrls: ['./check-out.component.css']
 })
 export class CheckOutComponent implements OnInit {
+
   cart$: Observable<ShoppingCart>;
 
-  constructor(private shoppingCartService: ShoppingCartService) { }
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private orderService: OrderService,
+    private shoppingCartService: ShoppingCartService) {
+
+    
+    }
   
   async ngOnInit() {
     this.cart$ = await this.shoppingCartService.getCart();
   }
+
+
 
 }

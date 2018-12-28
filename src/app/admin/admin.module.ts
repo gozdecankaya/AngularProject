@@ -3,10 +3,12 @@ import { RouterModule } from '@angular/router';
 
 import { AuthGuard } from '../shared/services/auth-guard.service';
 import { SharedModule } from '../shared/shared.module';
+import { CheckOutComponent } from '../shopping/components/check-out/check-out.component';
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 import { AdminProductsComponent } from './components/admin-products/admin-products.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
+import { OrderSummaryComponent } from '../shopping/components/order-summary/order-summary.component';
 
 @NgModule({
   declarations: [
@@ -33,10 +35,15 @@ import { AdminAuthGuard } from './services/admin-auth-guard.service';
         canActivate: [AuthGuard, AdminAuthGuard]
       },
       {
-        path: 'admin/orders',
+        path: 'admin/orders/list',
         component: AdminOrdersComponent,
         canActivate: [AuthGuard, AdminAuthGuard]
       },
+      {
+        path: 'admin/orders/:id',
+        component: OrderSummaryComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+      }
     ])
   ],
   providers: [
